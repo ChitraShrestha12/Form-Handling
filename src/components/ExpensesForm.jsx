@@ -27,6 +27,14 @@ export default function ExpensesForm({ setExpensesData }) {
   //   }
   //   return newData
   // }
+  const handlerChange = (e) => {
+    console.log(e.target);
+    const {name,value} = e.target
+    setExpenses((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   return (
     <form className="expense-form" onSubmit={handleSubmit}>
       <div className="input-container">
@@ -35,12 +43,7 @@ export default function ExpensesForm({ setExpensesData }) {
           id="title"
           name="title"
           value={expenses.title}
-          onChange={(e) => {
-            setExpenses((prevState) => ({
-              ...prevState,
-              title: e.target.value,
-            }));
-          }}
+          onChange={handlerChange}
         />
       </div>
       <div className="input-container">
@@ -49,12 +52,7 @@ export default function ExpensesForm({ setExpensesData }) {
           id="category"
           name="category"
           value={expenses.category}
-          onChange={(e) =>
-            setExpenses((prevState) => ({
-              ...prevState,
-              category: e.target.value,
-            }))
-          }
+          onChange={handlerChange}
         >
           <option hidden>Select Category</option>
           <option value="grocery">Grocery</option>
@@ -70,12 +68,7 @@ export default function ExpensesForm({ setExpensesData }) {
           id="amount"
           name="amount"
           value={expenses.amount}
-          onChange={(e) =>
-            setExpenses((prevState) => ({
-              ...prevState,
-              amount:+( e.target.value),
-            }))
-          }
+          onChange={handlerChange}
         />
       </div>
       <button className="add-btn">Add</button>
