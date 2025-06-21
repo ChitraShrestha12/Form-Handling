@@ -75,7 +75,8 @@ main {
 .input-container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .input-container label {
@@ -113,6 +114,14 @@ main {
 
 .context-menu div:hover {
     background-color: #ddd;
+}
+
+.error{
+    margin: 0;
+    color: red;
+    position: absolute;
+    top: 100%;
+    font-size: 15px;
 }
 
 @media (max-width: 900px) {

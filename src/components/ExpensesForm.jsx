@@ -7,10 +7,28 @@ export default function ExpensesForm({ setExpensesData }) {
   const [expenses, setExpenses] = useState({
     title: "",
     category: "",
-    amount: "",
+    amount: '',
   });
+  const [errors, setErrors] = useState({});
+  const validate = (formData) => {
+    const errorData = {};
+    if (!formData.title) {
+      errorData.title = "Title is required";
+    }
+    if (!formData.category) {
+      errorData.category = "Category is required";
+    }
+    if (!formData.amount) {
+      errorData.amount = "Amount is required";
+    }
+    setErrors(errorData);
+    return errorData;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const validateResult = validate(expenses);
+    if (Object.keys(validateResult).length) return;
+    
     setExpensesData((prevState) => [
       ...prevState,
       { ...expenses, id: crypto.randomUUID() },
@@ -28,8 +46,8 @@ export default function ExpensesForm({ setExpensesData }) {
   //   return newData
   // }
   const handlerChange = (e) => {
-    console.log(e.target);
-    const {name,value} = e.target
+    // console.log(e.target);
+    const { name, value } = e.target;
     setExpenses((prevState) => ({
       ...prevState,
       [name]: value,
@@ -45,6 +63,7 @@ export default function ExpensesForm({ setExpensesData }) {
           value={expenses.title}
           onChange={handlerChange}
         />
+        <p className="error">{errors.title}</p>
       </div>
       <div className="input-container">
         <label htmlFor="category">Category</label>
@@ -61,6 +80,7 @@ export default function ExpensesForm({ setExpensesData }) {
           <option value="education">Education</option>
           <option value="medicine">Medicine</option>
         </select>
+        <p className="error">{errors.title}</p>
       </div>
       <div className="input-container">
         <label htmlFor="amount">Amount</label>
@@ -70,6 +90,7 @@ export default function ExpensesForm({ setExpensesData }) {
           value={expenses.amount}
           onChange={handlerChange}
         />
+        <p className="error">{errors.title}</p>
       </div>
       <button className="add-btn">Add</button>
     </form>
